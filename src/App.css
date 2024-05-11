@@ -2,6 +2,16 @@
   --mainOpacity: rgba(0, 0, 0, 0.55);
 }
 
+.header {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url("./Images/PublicImages/image-exploretopmeals.jpg");
+  opacity: var(--mainOpacity);
+  height: 25em !important;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
 .main-color {
   background-color: #3a2720;
 }

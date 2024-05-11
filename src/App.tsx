@@ -8,7 +8,9 @@ function App() {
   return (
     <div className="d-flex flex-column min-vh-100">
       <Navbar />
-      <HomePage />
+      <div className="flex-grow-1">
+        <HomePage />
+      </div>
       <Footer />
     </div>
   );

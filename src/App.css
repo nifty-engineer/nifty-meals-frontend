@@ -16,6 +16,12 @@
   background-color: #3a2720;
 }
 
+.homepage-carousel-title {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
 .inactiveLink {
   pointer-events: none;
   cursor: default;

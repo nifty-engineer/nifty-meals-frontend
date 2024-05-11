@@ -45,7 +45,6 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-# **************************************************************************************************************************************************************************************
 # Project: nifty-meals app
 ## Background:
 The goal is to build a full-stack application that supports healthy eating through high-quality meal kit services with delicious weekly menus. The application would be designed using React framework for TypeScript on the frontend to display information and take input, and Spring framework for Java on the backend, to manage persisted information.

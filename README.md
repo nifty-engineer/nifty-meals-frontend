@@ -49,9 +49,7 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 ## Background:
 The goal is to build a full-stack application that supports healthy eating through high-quality meal kit services with delicious weekly menus. The application would be designed using React framework for TypeScript on the frontend to display information and take input, and Spring framework for Java on the backend, to manage persisted information.
 
-In this app, there would be three possible categories named “Breakfast”, “Lunch” and “Dinner.” All users would be able to search for specific meals, see featured meal in a carousel, review meals and lots more. Each user gets to select one to ten meal kits per box per week. Weekly menus can be chosen from any of the three categories. To get more information about a meal kit, users must be authenticated. These delicious meal kits would then be delivered for the upcoming week. Think of companies such as Hello Fresh, Purple Carrot or Factor Meals.
-
-Other features to be enacted will be the use of Okta in authentication and authorization as well as the setup of https certifications, keys and cross origin resource sharing.
+In this app, there would be three possible categories named “Breakfast”, “Lunch” and “Dinner.” All users would be able to search for specific meals, see featured meal in a carousel, review meals and lots more. Each user gets to select one to ten meal kits per box per week. Weekly menus can be chosen from any of the three categories. These delicious meal kits would then be delivered for the upcoming week. Think of products such as Hello Fresh, Purple Carrot or Factor Meals.
 
 # User Stories:
 ## 1: There should be a home page on the app - frontend

@@ -16,6 +16,22 @@
   background-color: #3a2720;
 }
 
+.col-image-left {
+  background-image: url("./Images/PublicImages/image-successstories-left.jpg");
+  height: 25em !important;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center 52%;
+}
+
+.col-image-right {
+  background-image: url("./Images/PublicImages/image-successstories-right.jpg");
+  height: 25em !important;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 60%;
+}
+
 .homepage-carousel-title {
   display: flex !important;
   justify-content: center !important;

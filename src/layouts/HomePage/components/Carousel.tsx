@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import MealModel from "../../../models/MealModel";
 import { SpinnerLoading } from "../../Utils/SpinnerLoading";
-import { Link } from "react-router-dom";
 import { ReturnMeal } from "./ReturnMeal";
 
 export const Carousel = () => {
@@ -60,6 +59,15 @@ export const Carousel = () => {
     );
   }
 
+  const breakfastMeals = meals.filter((meal) => meal.category === "breakfast");
+  const lunchMeals = meals.filter((meal) => meal.category === "lunch");
+  const dinnerMeals = meals.filter((meal) => meal.category === "dinner");
+  const mealsByCategory = [];
+
+  for (let i = 0; i < 3; i++) {
+    mealsByCategory.push(breakfastMeals[i], lunchMeals[i], dinnerMeals[i]);
+  }
+
   return (
     <div className="container mt-5" style={{ height: 550 }}>
       <div className="homepage-carousel-title">
@@ -75,21 +83,21 @@ export const Carousel = () => {
         <div className="carousel-inner">
           <div className="carousel-item active">
             <div className="row d-flex justify-content-center align-items-start">
-              {meals.slice(0, 3).map((meal) => (
+              {mealsByCategory.slice(0, 3).map((meal) => (
                 <ReturnMeal meal={meal} key={meal.id} />
               ))}
             </div>
           </div>
           <div className="carousel-item">
             <div className="row d-flex justify-content-center align-items-start">
-              {meals.slice(3, 6).map((meal) => (
+              {mealsByCategory.slice(3, 6).map((meal) => (
                 <ReturnMeal meal={meal} key={meal.id} />
               ))}
             </div>
           </div>
           <div className="carousel-item">
             <div className="row d-flex justify-content-center align-items-start">
-              {meals.slice(6, 9).map((meal) => (
+              {mealsByCategory.slice(6, 9).map((meal) => (
                 <ReturnMeal meal={meal} key={meal.id} />
               ))}
             </div>
@@ -126,11 +134,6 @@ export const Carousel = () => {
         <div className="row d-flex justify-content-center align-items-center">
           <ReturnMeal meal={meals[7]} key={meals[7].id} />
         </div>
-      </div>
-      <div className="homepage-carousel-title">
-        <Link className="btn btn-outline-secondary btn-lg" to="#">
-          View More
-        </Link>
       </div>
     </div>
   );

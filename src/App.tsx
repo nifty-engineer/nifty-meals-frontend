@@ -5,6 +5,7 @@ import { Footer } from "./layouts/NavbarAndFooter/Footer";
 import { HomePage } from "./layouts/HomePage/HomePage";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { MealCheckoutPage } from "./layouts/MealCheckoutPage/MealCheckoutPage";
+import { SearchMealsPage } from "./layouts/SearchMealsPage/SearchMealsPage";
 
 export const App = () => {
   return (
@@ -17,6 +18,9 @@ export const App = () => {
           </Route>
           <Route path="/home">
             <HomePage />
+          </Route>
+          <Route path="/search">
+            <SearchMealsPage />
           </Route>
           <Route path="/checkout/:mealId">
             <MealCheckoutPage />

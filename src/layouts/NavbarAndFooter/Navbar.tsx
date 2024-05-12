@@ -23,6 +23,11 @@ export const Navbar = () => {
                 Home
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/search">
+                Search Meals
+              </NavLink>
+            </li>
           </ul>
         </div>
       </div>

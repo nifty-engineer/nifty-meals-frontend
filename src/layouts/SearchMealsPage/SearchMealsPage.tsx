@@ -14,6 +14,7 @@ export const SearchMealsPage = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [search, setSearch] = useState("");
   const [searchUrl, setSearchUrl] = useState("");
+  const [categorySelection, setCategorySelection] = useState("Meal category");
 
   useEffect(() => {
     const fetchMeals = async () => {
@@ -89,6 +90,24 @@ export const SearchMealsPage = () => {
         `/search/findByTitleContaining?title=${search}&page=<pageNumber>&size=${mealsPerPage}`
       );
     }
+    setCategorySelection("Meal category");
+  };
+
+  const categoryField = (value: string) => {
+    setCurrentPage(1);
+    if (
+      value.toLowerCase() === "breakfast" ||
+      value.toLowerCase() === "lunch" ||
+      value.toLowerCase() === "dinner"
+    ) {
+      setCategorySelection(value);
+      setSearchUrl(
+        `/search/findByCategory?category=${value}&page=<pageNumber>&size=${mealsPerPage}`
+      );
+    } else {
+      setCategorySelection("All");
+      setSearchUrl(`?page=<pageNumber>&size=${mealsPerPage}`);
+    }
   };
 
   const indexOfLastMeal: number = currentPage * mealsPerPage;
@@ -120,6 +139,44 @@ export const SearchMealsPage = () => {
                 >
                   Search
                 </button>
+              </div>
+            </div>
+            <div className="col-4">
+              <div className="dropdown">
+                <button
+                  className="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  {categorySelection}
+                </button>
+                <ul
+                  className="dropdown-menu"
+                  aria-labelledby="dropdownMenuButton1"
+                >
+                  <li onClick={() => categoryField("All")}>
+                    <a className="dropdown-item" href="#">
+                      All
+                    </a>
+                  </li>
+                  <li onClick={() => categoryField("breakfast")}>
+                    <a className="dropdown-item" href="#">
+                      Breakfast
+                    </a>
+                  </li>
+                  <li onClick={() => categoryField("lunch")}>
+                    <a className="dropdown-item" href="#">
+                      Lunch
+                    </a>
+                  </li>
+                  <li onClick={() => categoryField("dinner")}>
+                    <a className="dropdown-item" href="#">
+                      Dinner
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>

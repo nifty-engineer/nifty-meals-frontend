@@ -18,7 +18,10 @@ export const ReturnMeal: React.FC<{ meal: MealModel }> = (props) => {
         )}
         <h6 className="mt-2">{props.meal.title}</h6>
         <p>{props.meal.category}</p>
-        <Link className="btn main-color text-white" to="#">
+        <Link
+          className="btn main-color text-white"
+          to={`/checkout/${props.meal.id}`}
+        >
           Select
         </Link>
       </div>

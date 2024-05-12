@@ -21,7 +21,7 @@ export const SuccessStories = () => {
                 className="btn main-color btn-lg text-white"
                 to="#"
               >
-                Explore top meals{" "}
+                Explore top meals
               </Link>
             </div>
           </div>
@@ -65,7 +65,7 @@ export const SuccessStories = () => {
                 className="btn main-color btn-lg text-white"
                 to="#"
               >
-                Explore top meals{" "}
+                Explore top meals
               </Link>
             </div>
           </div>

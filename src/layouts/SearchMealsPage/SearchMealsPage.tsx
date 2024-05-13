@@ -95,6 +95,7 @@ export const SearchMealsPage = () => {
 
   const categoryField = (value: string) => {
     setCurrentPage(1);
+    setSearch("");
     if (
       value.toLowerCase() === "breakfast" ||
       value.toLowerCase() === "lunch" ||
@@ -132,6 +133,7 @@ export const SearchMealsPage = () => {
                   placeholder="Search"
                   aria-labelledby="Search"
                   onChange={(e) => setSearch(e.target.value)}
+                  value={search}
                 />
                 <button
                   className="btn btn-outline-success"

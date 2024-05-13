@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import MealModel from "../../../models/MealModel";
 import { SpinnerLoading } from "../../Utils/SpinnerLoading";
-import { ReturnMeal } from "./ReturnMeal";
+import { SelectMeal } from "./SelectMeal";
 
 export const Carousel = () => {
   const [meals, setMeals] = useState<MealModel[]>([]);
@@ -84,21 +84,21 @@ export const Carousel = () => {
           <div className="carousel-item active">
             <div className="row d-flex justify-content-center align-items-start">
               {mealsByCategory.slice(0, 3).map((meal) => (
-                <ReturnMeal meal={meal} key={meal.id} />
+                <SelectMeal meal={meal} key={meal.id} />
               ))}
             </div>
           </div>
           <div className="carousel-item">
             <div className="row d-flex justify-content-center align-items-start">
               {mealsByCategory.slice(3, 6).map((meal) => (
-                <ReturnMeal meal={meal} key={meal.id} />
+                <SelectMeal meal={meal} key={meal.id} />
               ))}
             </div>
           </div>
           <div className="carousel-item">
             <div className="row d-flex justify-content-center align-items-start">
               {mealsByCategory.slice(6, 9).map((meal) => (
-                <ReturnMeal meal={meal} key={meal.id} />
+                <SelectMeal meal={meal} key={meal.id} />
               ))}
             </div>
           </div>
@@ -132,7 +132,7 @@ export const Carousel = () => {
       {/* Mobile */}
       <div className="d-lg-none mt-3">
         <div className="row d-flex justify-content-center align-items-center">
-          <ReturnMeal meal={meals[1]} key={meals[1].id} />
+          <SelectMeal meal={meals[1]} key={meals[1].id} />
         </div>
       </div>
     </div>

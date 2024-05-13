@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import MealModel from "../../../models/MealModel";
 
-export const ReturnMeal: React.FC<{ meal: MealModel }> = (props) => {
+export const SelectMeal: React.FC<{ meal: MealModel }> = (props) => {
   return (
     <div className="col-xs-6 col-sm-6 col-md-4 col-lg-3 mb-3">
       <div className="text-center">

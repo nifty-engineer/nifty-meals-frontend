@@ -80,6 +80,29 @@ export const MealCheckoutPage = () => {
           </div>
         </div>
       </div>
+
+      {/* Mobile */}
+      <div className="container d-lg-none mt-5">
+        <div className="d-flex justify-content-center alighn-items-center">
+          {meal?.img ? (
+            <img src={meal?.img} width="226" height="349" alt="Meal" />
+          ) : (
+            <img
+              src={require("./../../Images/MealsImages/potato-dinner.jpg")}
+              width="226"
+              height="349"
+              alt="Meal"
+            />
+          )}
+        </div>
+        <div className="mt-4">
+          <div className="ml-2">
+            <h2>{meal?.title}</h2>
+            <p className="lead">{meal?.description}</p>
+          </div>
+        </div>
+        <hr />
+      </div>
     </div>
   );
 };

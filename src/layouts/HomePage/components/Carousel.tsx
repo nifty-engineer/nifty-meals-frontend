@@ -132,7 +132,7 @@ export const Carousel = () => {
       {/* Mobile */}
       <div className="d-lg-none mt-3">
         <div className="row d-flex justify-content-center align-items-center">
-          <ReturnMeal meal={meals[7]} key={meals[7].id} />
+          <ReturnMeal meal={meals[1]} key={meals[1].id} />
         </div>
       </div>
     </div>

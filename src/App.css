@@ -42,3 +42,100 @@
   pointer-events: none;
   cursor: default;
 }
+
+/* *******************
+LOGIN/REGISTER FORM
+******************* */
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  margin-top: 200px;
+  width: 600px;
+  background: #fff;
+  padding-bottom: 30px;
+}
+
+.form-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.form-text {
+  color: #6c757d;
+  font-size: 38px;
+  font-weight: 700;
+}
+
+.form-underline {
+  width: 61px;
+  height: 6px;
+  background: #6c757d;
+  border-radius: 9px;
+}
+
+.form-groups {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  margin: auto;
+  width: 400px;
+  height: 50px;
+  background: #eaeaea;
+  border-radius: 6px;
+}
+
+.form-group img {
+  margin: 0px 30px;
+}
+
+.form-group input {
+  height: 50px;
+  width: 400px;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #797979;
+  font-size: 19px;
+}
+
+.submit-container {
+  display: flex;
+  gap: 30px;
+  margin: 60px auto;
+}
+
+.submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 40px;
+  color: #fff;
+  background: #3a2720;
+  border-radius: 50px;
+  font-size: 19px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.gray {
+  background: #eaeaea;
+  color: #6c757d;
+}
+
+.error {
+  color: red;
+}

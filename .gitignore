@@ -24,5 +24,6 @@ yarn-error.log*
 .env
 ssl-localhost/
 localhost.conf
-Auth/
 lib/
+OktaSignInWidget.jsx
+LoginWidget.jsx

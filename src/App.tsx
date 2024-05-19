@@ -6,6 +6,7 @@ import { HomePage } from "./layouts/HomePage/HomePage";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { MealCheckoutPage } from "./layouts/MealCheckoutPage/MealCheckoutPage";
 import { SearchMealsPage } from "./layouts/SearchMealsPage/SearchMealsPage";
+import { LoginOrRegister } from "./Auth/LoginOrRegister";
 
 export const App = () => {
   return (
@@ -25,6 +26,17 @@ export const App = () => {
           <Route path="/checkout/:mealId">
             <MealCheckoutPage />
           </Route>
+          <Route path="/register">
+            <Redirect to="/login" />
+          </Route>
+          <Route path="/login">
+            <LoginOrRegister />
+          </Route>
+          {/* <Route path='/login' render={
+            () => <LoginWidget config={oktaConfig} /> 
+            } 
+          />
+          <Route path='/login/callback' component={LoginCallback} /> */}
         </Switch>
       </div>
       <Footer />

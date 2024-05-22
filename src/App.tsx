@@ -7,10 +7,11 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import { MealCheckoutPage } from "./layouts/MealCheckoutPage/MealCheckoutPage";
 import { SearchMealsPage } from "./layouts/SearchMealsPage/SearchMealsPage";
 import { LoginOrRegister } from "./Auth/LoginOrRegister";
+import { AuthProvider } from "./Auth/AuthContext";
 
 export const App = () => {
   return (
-    <div className="d-flex flex-column min-vh-100">
+    <AuthProvider className="d-flex flex-column min-vh-100">
       <Navbar />
       <div className="flex-grow-1">
         <Switch>
@@ -32,14 +33,9 @@ export const App = () => {
           <Route path="/login">
             <LoginOrRegister />
           </Route>
-          {/* <Route path='/login' render={
-            () => <LoginWidget config={oktaConfig} /> 
-            } 
-          />
-          <Route path='/login/callback' component={LoginCallback} /> */}
         </Switch>
       </div>
       <Footer />
-    </div>
+    </AuthProvider>
   );
 };

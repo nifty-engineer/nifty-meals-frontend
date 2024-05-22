@@ -6,8 +6,10 @@ import email_icon from "../Images/LoginOrRegisterImages/email.png";
 import password_icon from "../Images/LoginOrRegisterImages/password.png";
 import { useHistory } from "react-router-dom";
 import AuthnRequestModel from "../models/AuthnRequestModel";
+import { useAuth } from "./AuthContext";
 
 export const LoginOrRegister = () => {
+  const { setAuthState, isAuthenticated, setIsAuthenticated } = useAuth();
   const [action, setAction] = useState("Login");
 
   const [userName, setUserName] = useState("");
@@ -17,8 +19,6 @@ export const LoginOrRegister = () => {
   const [userNameError, setUserNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const history = useHistory();
 
@@ -37,17 +37,13 @@ export const LoginOrRegister = () => {
       throw new Error("Something went wrong!");
     }
 
-    const authStatus = await authnResponse.json();
+    const authData = await authnResponse.json();
 
-    if (authStatus !== null && authStatus !== "null") {
-      window.localStorage.setItem("auth_status", authStatus);
-      setIsAuthenticated(true);
-    } else {
-      window.localStorage.removeItem("auth_status");
-      setIsAuthenticated(false);
-    }
-
-    return authStatus;
+    setAuthState({
+      name: authData.userName,
+      email: authData.userEmail,
+      token: authData.token,
+    });
   }
 
   // Function to validate user name
@@ -107,15 +103,9 @@ export const LoginOrRegister = () => {
 
     if (!isEmailValid || !isPasswordValid) {
       alert("Form data is incorrect");
-      console.log("isAuthenticated: " + isAuthenticated);
     } else {
-      // console.log(`User Name: ${userName}`);
-      // console.log(`Email: ${email}`);
-      // console.log(`Password: ${password}`);
-      const authStatus = fetchToken();
-      const resolvedPromise = Promise.resolve(authStatus);
-      resolvedPromise.then((result) => console.log(result.token));
-
+      fetchToken();
+      setIsAuthenticated(true);
       history.push("/home");
     }
   }
@@ -174,9 +164,7 @@ export const LoginOrRegister = () => {
         <button
           type="submit"
           className={action === "Login" ? "submit gray" : "submit"}
-          onClick={() => {
-            setAction("Register");
-          }}
+          onClick={() => setAction("Register")}
         >
           Register
         </button>

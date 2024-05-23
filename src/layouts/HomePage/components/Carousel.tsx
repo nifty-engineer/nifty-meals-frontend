@@ -31,8 +31,7 @@ export const Carousel = () => {
           id: responseData[key].id,
           title: responseData[key].title,
           description: responseData[key].description,
-          quantity: responseData[key].quantity,
-          quantityAvailable: responseData[key].quantityAvailable,
+          count: responseData[key].count,
           category: responseData[key].category,
           img: responseData[key].img,
         });

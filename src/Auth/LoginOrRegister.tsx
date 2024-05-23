@@ -39,6 +39,7 @@ export const LoginOrRegister = () => {
 
     const authData = await authnResponse.json();
 
+    setIsAuthenticated(true);
     setAuthState({
       name: authData.userName,
       email: authData.userEmail,
@@ -105,7 +106,6 @@ export const LoginOrRegister = () => {
       alert("Form data is incorrect");
     } else {
       fetchToken();
-      setIsAuthenticated(true);
       history.push("/home");
     }
   }

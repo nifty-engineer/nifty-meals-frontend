@@ -52,8 +52,7 @@ export const SearchMealsPage = () => {
           id: responseData[key].id,
           title: responseData[key].title,
           description: responseData[key].description,
-          quantity: responseData[key].copies,
-          quantityAvailable: responseData[key].copiesAvailable,
+          count: responseData[key].count,
           category: responseData[key].category,
           img: responseData[key].img,
         });

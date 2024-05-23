@@ -2,8 +2,7 @@ class MealModel {
   id: number;
   title: string;
   description?: string;
-  quantity?: number;
-  quantityAvailable?: number;
+  count?: number;
   category?: string;
   img?: string;
 
@@ -11,16 +10,14 @@ class MealModel {
     id: number,
     title: string,
     description: string,
-    quantity: number,
-    quantityAvailable: number,
+    count: number,
     category: string,
     img: string
   ) {
     this.id = id;
     this.title = title;
     this.description = description;
-    this.quantity = quantity;
-    this.quantityAvailable = quantityAvailable;
+    this.count = count;
     this.category = category;
     this.img = img;
   }

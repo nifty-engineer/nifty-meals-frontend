@@ -3,9 +3,7 @@ import { setLocalStorage, getLocalStorage } from "./TokenHelper";
 
 const AuthContext = React.createContext();
 
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
+export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = (props) => {
   const [authState, setAuthState] = useState(() =>

@@ -1,11 +1,22 @@
 import { useEffect, useState } from "react";
 import MealModel from "../../models/MealModel";
 import { SpinnerLoading } from "../Utils/SpinnerLoading";
+import { useAuth } from "../../Auth/AuthContext";
+import { CheckoutBox } from "./CheckoutBox";
 
 export const MealCheckoutPage = () => {
+  const { authState, isAuthenticated } = useAuth();
+
+  console.log("MealCheckOutPage: " + isAuthenticated);
+
   const [meal, setMeal] = useState<MealModel>();
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState(null);
+
+  // Checkouts Count State
+  const [currentCheckoutsCount, setCurrentCheckoutsCount] = useState(0);
+  const [isLoadingCurrentCheckoutsCount, setIsLoadingCurrentCheckoutsCount] =
+    useState(true);
 
   // Is Meal Checked Out?
   const [isCheckedOut, setIsCheckedOut] = useState(false);
@@ -29,8 +40,7 @@ export const MealCheckoutPage = () => {
         id: responseJson.id,
         title: responseJson.title,
         description: responseJson.description,
-        quantity: responseJson.copies,
-        quantityAvailable: responseJson.copiesAvailable,
+        count: responseJson.count,
         category: responseJson.category,
         img: responseJson.img,
       };
@@ -44,7 +54,62 @@ export const MealCheckoutPage = () => {
     });
   }, [isCheckedOut]);
 
-  if (isLoading) {
+  useEffect(() => {
+    const fetchUserCurrentCheckoutsCount = async () => {
+      if (authState && isAuthenticated) {
+        const url = `http://localhost:8080/api/meals/member/currentcheckouts/count`;
+        const requestOptions = {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${authState.token}`,
+            "Content-Type": "application/json",
+          },
+        };
+        const currentCheckoutsCountResponse = await fetch(url, requestOptions);
+        if (!currentCheckoutsCountResponse.ok) {
+          throw new Error("Something went wrong!");
+        }
+        const currentCheckoutsCountResponseJson =
+          await currentCheckoutsCountResponse.json();
+        setCurrentCheckoutsCount(currentCheckoutsCountResponseJson);
+      }
+      setIsLoadingCurrentCheckoutsCount(false);
+    };
+    fetchUserCurrentCheckoutsCount().catch((error: any) => {
+      setIsLoadingCurrentCheckoutsCount(false);
+      setHttpError(error.message);
+    });
+  }, [authState, isCheckedOut]);
+
+  useEffect(() => {
+    const fetchUserCheckedOutMeal = async () => {
+      if (authState && isAuthenticated) {
+        const url = `http://localhost:8080/api/meals/member/ischeckedout/byuser?mealId=${mealId}`;
+        const requestOptions = {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${authState.token}`,
+            "Content-Type": "application/json",
+          },
+        };
+        const mealCheckedOut = await fetch(url, requestOptions);
+
+        if (!mealCheckedOut.ok) {
+          throw new Error("Something went wrong!");
+        }
+
+        const mealCheckedOutResponseJson = await mealCheckedOut.json();
+        setIsCheckedOut(mealCheckedOutResponseJson);
+      }
+      setIsLoadingMealCheckedOut(false);
+    };
+    fetchUserCheckedOutMeal().catch((error: any) => {
+      setIsLoadingMealCheckedOut(false);
+      setHttpError(error.message);
+    });
+  }, [authState]);
+
+  if (isLoading || isLoadingCurrentCheckoutsCount || isLoadingMealCheckedOut) {
     return <SpinnerLoading />;
   }
 
@@ -54,6 +119,22 @@ export const MealCheckoutPage = () => {
         <p>{httpError}</p>
       </div>
     );
+  }
+
+  async function checkoutMeal() {
+    const url = `http://localhost:8080/api/meals/member/checkout?mealId=${meal?.id}`;
+    const requestOptions = {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${authState?.token}`,
+        "Content-Type": "application/json",
+      },
+    };
+    const checkoutResponse = await fetch(url, requestOptions);
+    if (!checkoutResponse.ok) {
+      throw new Error("Something went wrong!");
+    }
+    setIsCheckedOut(true);
   }
 
   return (
@@ -78,6 +159,14 @@ export const MealCheckoutPage = () => {
               <p className="lead">{meal?.description}</p>
             </div>
           </div>
+          <CheckoutBox
+            meal={meal}
+            mobile={false}
+            currentCheckoutsCount={currentCheckoutsCount}
+            isAuthenticated={isAuthenticated}
+            isCheckedOut={isCheckedOut}
+            checkoutMeal={checkoutMeal}
+          />
         </div>
       </div>
 
@@ -101,6 +190,14 @@ export const MealCheckoutPage = () => {
             <p className="lead">{meal?.description}</p>
           </div>
         </div>
+        <CheckoutBox
+          meal={meal}
+          mobile={true}
+          currentCheckoutsCount={currentCheckoutsCount}
+          isAuthenticated={isAuthenticated}
+          isCheckedOut={isCheckedOut}
+          checkoutMeal={checkoutMeal}
+        />
         <hr />
       </div>
     </div>

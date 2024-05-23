@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { setLocalStorage, getLocalStorage } from "./TokenHelper";
+import { getLocalStorage, login, logout } from "./TokenHelper";
 
 const AuthContext = React.createContext();
 
@@ -9,18 +9,18 @@ export const AuthProvider = (props) => {
   const [authState, setAuthState] = useState(() =>
     getLocalStorage("authState", null)
   );
-
-  useEffect(() => {
-    setLocalStorage("authState", authState);
-  }, [authState]);
-
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  useEffect(() => {
+    login("authState", authState);
+  }, [authState]);
+
   const value = {
-    authState,
-    setAuthState,
     isAuthenticated,
     setIsAuthenticated,
+    authState,
+    setAuthState,
+    logout,
   };
 
   return (

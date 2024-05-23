@@ -1,6 +1,26 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
+import { useAuth } from "../../Auth/AuthContext";
+import { SpinnerLoading } from "../Utils/SpinnerLoading";
 
 export const Navbar = () => {
+  const history = useHistory();
+  const { isAuthenticated, setIsAuthenticated, authState, logout } = useAuth();
+
+  if (!authState) {
+    return <SpinnerLoading />;
+  }
+
+  const handleLogout = () => {
+    logout();
+    setIsAuthenticated(false);
+    <li className="nav-item m-1">
+      <Link type="button" className="btn btn-outline-light" to="/login">
+        Login/Register
+      </Link>
+    </li>;
+    history.push("/#");
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark main-color py-3">
       <div className="container-fluid">
@@ -30,11 +50,26 @@ export const Navbar = () => {
             </li>
           </ul>
           <ul className="navbar-nav ms-auto">
-            <li className="nav-item m-1">
-              <Link type="button" className="btn btn-outline-light" to="/login">
-                Login/Register
-              </Link>
-            </li>
+            {!isAuthenticated ? (
+              <li className="nav-item m-1">
+                <Link
+                  type="button"
+                  className="btn btn-outline-light"
+                  to="/login"
+                >
+                  Login/Register
+                </Link>
+              </li>
+            ) : (
+              <li>
+                <button
+                  className="btn btn-outline-light"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </li>
+            )}
           </ul>
         </div>
       </div>

@@ -10,7 +10,6 @@ export const CheckoutBox: React.FC<{
   checkoutMeal: any;
 }> = (props) => {
   function buttonRender() {
-    console.log(props.isAuthenticated, props.isCheckedOut);
     if (props.isAuthenticated) {
       if (!props.isCheckedOut && props.currentCheckoutsCount < 10) {
         return (

@@ -1,8 +1,8 @@
-export const setLocalStorage = (key, value) => {
+export const login = (key, value) => {
   if (value !== null && value !== "null") {
     window.localStorage.setItem(key, JSON.stringify(value));
   } else {
-    window.localStorage.removeItem(key);
+    logout();
   }
 };
 
@@ -14,4 +14,8 @@ export const getLocalStorage = (key, initialValue) => {
     // if error, return initial value
     return initialValue;
   }
+};
+
+export const logout = async () => {
+  window.localStorage.removeItem("authState");
 };

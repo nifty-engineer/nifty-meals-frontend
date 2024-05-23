@@ -7,8 +7,6 @@ import { CheckoutBox } from "./CheckoutBox";
 export const MealCheckoutPage = () => {
   const { authState, isAuthenticated } = useAuth();
 
-  console.log("MealCheckOutPage: " + isAuthenticated);
-
   const [meal, setMeal] = useState<MealModel>();
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState(null);

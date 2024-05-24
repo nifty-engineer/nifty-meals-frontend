@@ -108,7 +108,9 @@ export const CheckoutAndReviewBox: React.FC<{
         <div className="mt-3">
           <p>
             <b>{props.currentCheckoutsCount} </b>
-            <span>meal checked out.</span>
+            <span>
+              meal{props.currentCheckoutsCount <= 1 ? "" : "s"} checked out
+            </span>
             <p>
               You can checkout {10 - props.currentCheckoutsCount} more meals for
               the upcoming week

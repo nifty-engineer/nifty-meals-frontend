@@ -1,13 +1,16 @@
 import { Link } from "react-router-dom";
 import MealModel from "../../models/MealModel";
+import { LeaveAReview } from "../Utils/LeaveAReview";
 
-export const CheckoutBox: React.FC<{
+export const CheckoutAndReviewBox: React.FC<{
   meal: MealModel | undefined;
   mobile: boolean;
   currentCheckoutsCount: number;
   isAuthenticated: any;
   isCheckedOut: boolean;
   checkoutMeal: any;
+  isReviewLeft: boolean;
+  submitReview: any;
 }> = (props) => {
   function buttonRender() {
     if (props.isAuthenticated) {
@@ -73,6 +76,28 @@ export const CheckoutBox: React.FC<{
       );
     }
   }
+
+  function reviewRender() {
+    if (props.isAuthenticated && !props.isReviewLeft) {
+      return (
+        <p>
+          <LeaveAReview submitReview={props.submitReview} />
+        </p>
+      );
+    } else if (props.isAuthenticated && props.isReviewLeft) {
+      return (
+        <p>
+          <b>Thank you for your review!</b>
+        </p>
+      );
+    }
+    return (
+      <div>
+        <p>Login to be able to leave a review.</p>
+      </div>
+    );
+  }
+
   return (
     <div
       className={
@@ -82,14 +107,19 @@ export const CheckoutBox: React.FC<{
       <div className="card-body container">
         <div className="mt-3">
           <p>
-            <b>{props.currentCheckoutsCount}/10 </b>
-            meals checked out
+            <b>{props.currentCheckoutsCount} </b>
+            <span>meal checked out.</span>
+            <p>
+              You can checkout {10 - props.currentCheckoutsCount} more meals for
+              the upcoming week
+            </p>
           </p>
           <hr />
           {mealAvailability()}
         </div>
         {buttonRender()}
         <hr />
+        {reviewRender()}
       </div>
     </div>
   );

@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import MealModel from "../../models/MealModel";
 import { SpinnerLoading } from "../Utils/SpinnerLoading";
 import { useAuth } from "../../Auth/AuthContext";
-import { CheckoutBox } from "./CheckoutBox";
+import { CheckoutAndReviewBox } from "./CheckoutAndReviewBox";
+import ReviewModel from "../../models/ReviewModel";
+import { LatestReviews } from "./LatestReviews";
+import { StarsReview } from "../Utils/StarsReview";
+import ReviewRequestModel from "../../models/ReviewRequestModel";
 
 export const MealCheckoutPage = () => {
   const { authState, isAuthenticated } = useAuth();
@@ -10,6 +14,14 @@ export const MealCheckoutPage = () => {
   const [meal, setMeal] = useState<MealModel>();
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState(null);
+
+  // Review State
+  const [reviews, setReviews] = useState<ReviewModel[]>([]);
+  const [totalStars, setTotalStars] = useState(0);
+  const [isLoadingReview, setIsLoadingReview] = useState(true);
+
+  const [isReviewLeft, setIsReviewLeft] = useState(false);
+  const [isLoadingUserReview, setIsLoadingUserReview] = useState(true);
 
   // Checkouts Count State
   const [currentCheckoutsCount, setCurrentCheckoutsCount] = useState(0);
@@ -51,6 +63,79 @@ export const MealCheckoutPage = () => {
       setHttpError(error.message);
     });
   }, [isCheckedOut]);
+
+  useEffect(() => {
+    const fetchMealReviews = async () => {
+      const reviewUrl: string = `http://localhost:8080/api/reviews/search/findByMealId?mealId=${mealId}`;
+
+      const responseReviews = await fetch(reviewUrl);
+
+      if (!responseReviews.ok) {
+        throw new Error("Something went wrong!");
+      }
+
+      const responseJsonReviews = await responseReviews.json();
+
+      const responseData = responseJsonReviews._embedded.reviews;
+
+      const loadedReviews: ReviewModel[] = [];
+
+      let weightedStarReviews: number = 0;
+
+      for (const key in responseData) {
+        loadedReviews.push({
+          id: responseData[key].id,
+          userEmail: responseData[key].userEmail,
+          date: responseData[key].date,
+          rating: responseData[key].rating,
+          mealId: responseData[key].mealId,
+          reviewDescription: responseData[key].reviewDescription,
+        });
+        weightedStarReviews = weightedStarReviews + responseData[key].rating;
+      }
+
+      if (loadedReviews) {
+        const round = (
+          Math.round((weightedStarReviews / loadedReviews.length) * 2) / 2
+        ).toFixed(1);
+        setTotalStars(Number(round));
+      }
+
+      setReviews(loadedReviews);
+      setIsLoadingReview(false);
+    };
+
+    fetchMealReviews().catch((error: any) => {
+      setIsLoadingReview(false);
+      setHttpError(error.message);
+    });
+  }, [isReviewLeft]);
+
+  useEffect(() => {
+    const fetchUserReviewMeal = async () => {
+      if (authState && isAuthenticated) {
+        const url = `http://localhost:8080/api/reviews/member/meal?mealId=${mealId}`;
+        const requestOptions = {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${authState.token}`,
+            "Content-Type": "application/json",
+          },
+        };
+        const userReview = await fetch(url, requestOptions);
+        if (!userReview.ok) {
+          throw new Error("Something went wrong");
+        }
+        const userReviewResponseJson = await userReview.json();
+        setIsReviewLeft(userReviewResponseJson);
+      }
+      setIsLoadingUserReview(false);
+    };
+    fetchUserReviewMeal().catch((error: any) => {
+      setIsLoadingUserReview(false);
+      setHttpError(error.message);
+    });
+  }, [authState]);
 
   useEffect(() => {
     const fetchUserCurrentCheckoutsCount = async () => {
@@ -107,7 +192,13 @@ export const MealCheckoutPage = () => {
     });
   }, [authState]);
 
-  if (isLoading || isLoadingCurrentCheckoutsCount || isLoadingMealCheckedOut) {
+  if (
+    isLoading ||
+    isLoadingReview ||
+    isLoadingCurrentCheckoutsCount ||
+    isLoadingMealCheckedOut ||
+    isLoadingUserReview
+  ) {
     return <SpinnerLoading />;
   }
 
@@ -135,6 +226,33 @@ export const MealCheckoutPage = () => {
     setIsCheckedOut(true);
   }
 
+  async function submitReview(starInput: number, reviewDescription: string) {
+    let mealId: number = 0;
+    if (meal?.id) {
+      mealId = meal.id;
+    }
+
+    const reviewRequestModel = new ReviewRequestModel(
+      starInput,
+      mealId,
+      reviewDescription
+    );
+    const url = `http://localhost:8080/api/reviews/member`;
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${authState?.token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(reviewRequestModel),
+    };
+    const returnResponse = await fetch(url, requestOptions);
+    if (!returnResponse.ok) {
+      throw new Error("Something went wrong!");
+    }
+    setIsReviewLeft(true);
+  }
+
   return (
     <div>
       <div className="container d-none d-lg-block">
@@ -155,17 +273,22 @@ export const MealCheckoutPage = () => {
             <div className="ml-2">
               <h2>{meal?.title}</h2>
               <p className="lead">{meal?.description}</p>
+              <StarsReview rating={totalStars} size={32} />
             </div>
           </div>
-          <CheckoutBox
+          <CheckoutAndReviewBox
             meal={meal}
             mobile={false}
             currentCheckoutsCount={currentCheckoutsCount}
             isAuthenticated={isAuthenticated}
             isCheckedOut={isCheckedOut}
             checkoutMeal={checkoutMeal}
+            isReviewLeft={isReviewLeft}
+            submitReview={submitReview}
           />
         </div>
+        <hr />
+        <LatestReviews reviews={reviews} mealId={meal?.id} mobile={false} />
       </div>
 
       {/* Mobile */}
@@ -186,17 +309,21 @@ export const MealCheckoutPage = () => {
           <div className="ml-2">
             <h2>{meal?.title}</h2>
             <p className="lead">{meal?.description}</p>
+            <StarsReview rating={totalStars} size={32} />
           </div>
         </div>
-        <CheckoutBox
+        <CheckoutAndReviewBox
           meal={meal}
           mobile={true}
           currentCheckoutsCount={currentCheckoutsCount}
           isAuthenticated={isAuthenticated}
           isCheckedOut={isCheckedOut}
           checkoutMeal={checkoutMeal}
+          isReviewLeft={isReviewLeft}
+          submitReview={submitReview}
         />
         <hr />
+        <LatestReviews reviews={reviews} mealId={meal?.id} mobile={true} />
       </div>
     </div>
   );

@@ -8,34 +8,40 @@ import { MealCheckoutPage } from "./layouts/MealCheckoutPage/MealCheckoutPage";
 import { SearchMealsPage } from "./layouts/SearchMealsPage/SearchMealsPage";
 import { LoginOrRegister } from "./Auth/LoginOrRegister";
 import { AuthProvider } from "./Auth/AuthContext";
+import { ReviewListPage } from "./layouts/MealCheckoutPage/ReviewListPage/ReviewListPage";
 
 export const App = () => {
   return (
-    <AuthProvider className="d-flex flex-column min-vh-100">
-      <Navbar />
-      <div className="flex-grow-1">
-        <Switch>
-          <Route path="/" exact>
-            <Redirect to="/home" />
-          </Route>
-          <Route path="/home">
-            <HomePage />
-          </Route>
-          <Route path="/search">
-            <SearchMealsPage />
-          </Route>
-          <Route path="/checkout/:mealId">
-            <MealCheckoutPage />
-          </Route>
-          <Route path="/register">
-            <Redirect to="/login" />
-          </Route>
-          <Route path="/login">
-            <LoginOrRegister />
-          </Route>
-        </Switch>
+    <AuthProvider>
+      <div className="d-flex flex-column min-vh-100">
+        <Navbar />
+        <div className="flex-grow-1">
+          <Switch>
+            <Route path="/" exact>
+              <Redirect to="/home" />
+            </Route>
+            <Route path="/home">
+              <HomePage />
+            </Route>
+            <Route path="/search">
+              <SearchMealsPage />
+            </Route>
+            <Route path="/reviewlist/:mealId">
+              <ReviewListPage />
+            </Route>
+            <Route path="/checkout/:mealId">
+              <MealCheckoutPage />
+            </Route>
+            <Route path="/register">
+              <Redirect to="/login" />
+            </Route>
+            <Route path="/login">
+              <LoginOrRegister />
+            </Route>
+          </Switch>
+        </div>
+        <Footer />
       </div>
-      <Footer />
     </AuthProvider>
   );
 };

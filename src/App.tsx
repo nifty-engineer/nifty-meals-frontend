@@ -9,6 +9,8 @@ import { SearchMealsPage } from "./layouts/SearchMealsPage/SearchMealsPage";
 import { LoginOrRegister } from "./Auth/LoginOrRegister";
 import { AuthProvider } from "./Auth/AuthContext";
 import { ReviewListPage } from "./layouts/MealCheckoutPage/ReviewListPage/ReviewListPage";
+import { AuthenticatedRoute } from "./Auth/AuthenticatedRoute";
+import { CartHistoryPage } from "./layouts/CartHistoryPage/CartHistoryPage";
 
 export const App = () => {
   return (
@@ -38,6 +40,9 @@ export const App = () => {
             <Route path="/login">
               <LoginOrRegister />
             </Route>
+            <AuthenticatedRoute path="/cart">
+              <CartHistoryPage />
+            </AuthenticatedRoute>
           </Switch>
         </div>
         <Footer />

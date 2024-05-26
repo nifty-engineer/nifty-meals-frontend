@@ -1,4 +1,4 @@
-export const login = (key, value) => {
+export const login = (key: string, value: any) => {
   if (value !== null && value !== "null") {
     window.localStorage.setItem(key, JSON.stringify(value));
   } else {
@@ -6,7 +6,7 @@ export const login = (key, value) => {
   }
 };
 
-export const getLocalStorage = (key, initialValue) => {
+export const getLocalStorage = (key: string, initialValue: any) => {
   try {
     const value = window.localStorage.getItem(key);
     return value ? JSON.parse(value) : initialValue;

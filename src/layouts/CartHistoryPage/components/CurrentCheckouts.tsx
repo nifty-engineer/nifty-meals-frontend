@@ -56,6 +56,22 @@ export const CurrentCheckouts = () => {
     );
   }
 
+  async function removeMeal(mealId: number) {
+    const url = `http://localhost:8080/api/meals/member/remove?id=${mealId}`;
+    const requestOptions = {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${authState?.token}`,
+        "Content-Type": "application/json",
+      },
+    };
+    const returnResponse = await fetch(url, requestOptions);
+    if (!returnResponse.ok) {
+      throw new Error("Something went wrong!");
+    }
+    setCheckout(!checkout);
+  }
+
   return (
     <div>
       {/* Desktop */}
@@ -131,6 +147,7 @@ export const CurrentCheckouts = () => {
                 <CheckoutsModal
                   currentCheckoutsModel={currentCheckout}
                   mobile={false}
+                  removeMeal={removeMeal}
                 />
               </div>
             ))}
@@ -217,6 +234,7 @@ export const CurrentCheckouts = () => {
                 <CheckoutsModal
                   currentCheckoutsModel={currentCheckout}
                   mobile={true}
+                  removeMeal={removeMeal}
                 />
               </div>
             ))}

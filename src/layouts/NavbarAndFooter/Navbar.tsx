@@ -51,7 +51,7 @@ export const Navbar = () => {
             {isAuthenticated && (
               <li className="nav-item">
                 <NavLink className="nav-link" to="/cart">
-                  My Cart
+                  My Meals
                 </NavLink>
               </li>
             )}

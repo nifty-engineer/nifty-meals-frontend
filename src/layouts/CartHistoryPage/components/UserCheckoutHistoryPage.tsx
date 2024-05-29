@@ -19,9 +19,9 @@ export const UserCheckoutHistoryPage = () => {
 
   useEffect(() => {
     const fetchUserHistory = async () => {
-      if (authState && authState.isAuthenticated) {
+      if (authState && isAuthenticated) {
         const url = `http://localhost:8080/api/userCheckoutHistories/search/findMealsByUserEmail?userEmail=${
-          authState.token?.claims.sub
+          authState?.email
         }&page=${currentPage - 1}&size=5`;
         const requestOptions = {
           method: "GET",
@@ -67,11 +67,11 @@ export const UserCheckoutHistoryPage = () => {
           <h5>Recent Checkout History:</h5>
 
           {histories.map((history) => (
-            <div key={history.id}>
+            <div>
               <div className="card mt-3 shadow p-3 mb-3 bg-body rounded">
                 <div className="row g-0">
                   <div className="col-md-2">
-                    <div className="d-none d-lg-block">
+                    <div className="d-none d-lg-block" key={history.id}>
                       {history.img ? (
                         <img
                           src={history.img}

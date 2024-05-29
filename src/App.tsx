@@ -11,6 +11,7 @@ import { AuthProvider } from "./Auth/AuthContext";
 import { ReviewListPage } from "./layouts/MealCheckoutPage/ReviewListPage/ReviewListPage";
 import { AuthenticatedRoute } from "./Auth/AuthenticatedRoute";
 import { CartPage } from "./layouts/CartHistoryPage/CartPage";
+import { MessagesPage } from "./layouts/MessagesPage/MessagesPage";
 
 export const App = () => {
   return (
@@ -42,6 +43,9 @@ export const App = () => {
             </Route>
             <AuthenticatedRoute path="/cart">
               <CartPage />
+            </AuthenticatedRoute>
+            <AuthenticatedRoute path="/messages">
+              <MessagesPage />
             </AuthenticatedRoute>
           </Switch>
         </div>

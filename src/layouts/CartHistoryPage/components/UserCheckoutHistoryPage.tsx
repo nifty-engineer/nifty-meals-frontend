@@ -109,7 +109,6 @@ export const UserCheckoutHistoryPage = () => {
                   <div className="col">
                     <div className="card-body">
                       <h5 className="card-title"> {history.title} </h5>
-                      <h4>{history.title}</h4>
                       <p className="card-text">{history.description}</p>
                       <hr />
                       <p className="card-text">

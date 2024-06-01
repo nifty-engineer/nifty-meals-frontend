@@ -4,7 +4,8 @@ import { SpinnerLoading } from "../Utils/SpinnerLoading";
 
 export const Navbar = () => {
   const history = useHistory();
-  const { isAuthenticated, setIsAuthenticated, authState, logout } = useAuth();
+  const { isAuthenticated, setIsAuthenticated, authState, role, logout } =
+    useAuth();
 
   if (!authState) {
     return <SpinnerLoading />;
@@ -52,6 +53,13 @@ export const Navbar = () => {
               <li className="nav-item">
                 <NavLink className="nav-link" to="/cart">
                   My Meals
+                </NavLink>
+              </li>
+            )}
+            {isAuthenticated && role === "ADMIN" && (
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/admin">
+                  Admin
                 </NavLink>
               </li>
             )}

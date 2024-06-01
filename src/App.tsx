@@ -12,6 +12,7 @@ import { ReviewListPage } from "./layouts/MealCheckoutPage/ReviewListPage/Review
 import { AuthenticatedRoute } from "./Auth/AuthenticatedRoute";
 import { CartPage } from "./layouts/CartHistoryPage/CartPage";
 import { MessagesPage } from "./layouts/MessagesPage/MessagesPage";
+import { AdminPage } from "./layouts/AdminPage/AdminPage";
 
 export const App = () => {
   return (
@@ -46,6 +47,9 @@ export const App = () => {
             </AuthenticatedRoute>
             <AuthenticatedRoute path="/messages">
               <MessagesPage />
+            </AuthenticatedRoute>
+            <AuthenticatedRoute path="/admin">
+              <AdminPage />
             </AuthenticatedRoute>
           </Switch>
         </div>

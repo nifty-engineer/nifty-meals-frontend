@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { getLocalStorage, login, logout } from "./TokenHelper";
+import { CustomJwtPayload } from "../Auth/entity/CustomJwtPayload";
+import { jwtDecode } from "jwt-decode";
 
 const AuthContext = React.createContext<any | null>(null);
 
@@ -10,9 +12,16 @@ export const AuthProvider = (props: any) => {
     getLocalStorage("authState", null)
   );
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [role, setRole] = useState<any>("MEMBER");
 
+  let decoded: CustomJwtPayload;
   useEffect(() => {
     login("authState", authState);
+    authState.token === undefined
+      ? logout()
+      : (decoded = jwtDecode<CustomJwtPayload>(authState?.token));
+    setRole(decoded?.role);
+    console.log(decoded?.role);
   }, [authState]);
 
   const value = {
@@ -20,6 +29,7 @@ export const AuthProvider = (props: any) => {
     setIsAuthenticated,
     authState,
     setAuthState,
+    role,
     logout,
   };
 

@@ -23,7 +23,6 @@ export const Messages = () => {
         const url = `http://localhost:8080/api/messages/search/findByUserEmail?userEmail=${
           authState?.email
         }&page=${currentPage - 1}&size=${messagesPerPage}`;
-        console.log(authState, isAuthenticated);
         const requestOptions = {
           method: "GET",
           headers: {
@@ -75,6 +74,22 @@ export const Messages = () => {
                 </h5>
                 <h6>{message.userEmail}</h6>
                 <p>{message.question}</p>
+                <hr />
+                <div>
+                  <h5>Response: </h5>
+                  {message.response && message.adminEmail ? (
+                    <>
+                      <h6>{message.adminEmail} (admin)</h6>
+                      <p>{message.response}</p>
+                    </>
+                  ) : (
+                    <p>
+                      <i>
+                        Response from our team is pending. Please be patient.
+                      </i>
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
           ))}

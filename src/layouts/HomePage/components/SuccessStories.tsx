@@ -63,7 +63,7 @@ export const SuccessStories = () => {
               <Link
                 type="button"
                 className="btn main-color btn-lg text-white"
-                to="#"
+                to="/search"
               >
                 Explore top meals
               </Link>

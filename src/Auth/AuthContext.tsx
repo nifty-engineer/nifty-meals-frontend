@@ -8,20 +8,25 @@ const AuthContext = React.createContext<any | null>(null);
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = (props: any) => {
-  const [authState, setAuthState] = useState(() =>
+  const [authState, setAuthState] = useState(
     getLocalStorage("authState", null)
   );
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(() =>
+    getLocalStorage("authState", null) ? true : false
+  );
   const [role, setRole] = useState<any>("MEMBER");
 
   let decoded: CustomJwtPayload;
   useEffect(() => {
-    login("authState", authState);
-    authState.token === undefined
-      ? logout()
-      : (decoded = jwtDecode<CustomJwtPayload>(authState?.token));
-    setRole(decoded?.role);
-    console.log(decoded?.role);
+    if (!authState) {
+      logout();
+    } else {
+      login("authState", authState);
+      (decoded = jwtDecode<CustomJwtPayload>(authState.token)) &&
+        setRole(decoded?.role);
+
+      console.log(decoded?.role);
+    }
   }, [authState]);
 
   const value = {

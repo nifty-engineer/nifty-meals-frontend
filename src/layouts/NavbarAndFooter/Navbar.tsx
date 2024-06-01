@@ -4,12 +4,12 @@ import { SpinnerLoading } from "../Utils/SpinnerLoading";
 
 export const Navbar = () => {
   const history = useHistory();
-  const { isAuthenticated, setIsAuthenticated, authState, role, logout } =
+  const { authState, isAuthenticated, setIsAuthenticated, role, logout } =
     useAuth();
 
-  if (!authState) {
-    return <SpinnerLoading />;
-  }
+  // if (!authState) {
+  //   return <SpinnerLoading />;
+  // }
 
   const handleLogout = () => {
     logout();

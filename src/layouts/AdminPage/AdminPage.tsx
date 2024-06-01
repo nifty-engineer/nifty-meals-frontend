@@ -6,7 +6,7 @@ import { AdminMessages } from "./components/AdminMessages";
 import { ChangeQuantityOfMeals } from "./components/ChangeQuantityOfMeals";
 
 export const AdminPage = () => {
-  const { authState, role } = useAuth();
+  const { role } = useAuth();
 
   const [changeQuantityOfMealsClick, setChangeQuantityOfMealsClick] =
     useState(false);

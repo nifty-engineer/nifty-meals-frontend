@@ -6,7 +6,7 @@ export const CheckoutAndReviewBox: React.FC<{
   meal: MealModel | undefined;
   mobile: boolean;
   currentCheckoutsCount: number;
-  isAuthenticated: any;
+  isAuthenticated: boolean;
   isCheckedOut: boolean;
   checkoutMeal: any;
   isReviewLeft: boolean;

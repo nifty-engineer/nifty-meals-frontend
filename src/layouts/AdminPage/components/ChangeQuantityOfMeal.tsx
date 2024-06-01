@@ -6,8 +6,7 @@ export const ChangeQuantityOfMeal: React.FC<{
   meal: MealModel;
   deleteMeal: any;
 }> = (props, key) => {
-  const { authState, isAuthenticated } = useAuth();
-  const [quantity, setQuantity] = useState<number>(0);
+  const { authState } = useAuth();
   const [remaining, setRemaining] = useState<number>(0);
 
   useEffect(() => {

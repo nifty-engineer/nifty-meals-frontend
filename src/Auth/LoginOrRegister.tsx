@@ -9,7 +9,7 @@ import AuthnRequestModel from "../models/AuthnRequestModel";
 import { useAuth } from "./AuthContext";
 
 export const LoginOrRegister = () => {
-  const { setAuthState, isAuthenticated, setIsAuthenticated } = useAuth();
+  const { setAuthState, setIsAuthenticated } = useAuth();
   const [action, setAction] = useState("Login");
 
   const [userName, setUserName] = useState("");

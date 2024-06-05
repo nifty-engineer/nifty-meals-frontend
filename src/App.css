@@ -43,6 +43,10 @@
   cursor: default;
 }
 
+.cardy {
+  height: 120px;
+}
+
 /* *******************
 LOGIN/REGISTER FORM
 ******************* */

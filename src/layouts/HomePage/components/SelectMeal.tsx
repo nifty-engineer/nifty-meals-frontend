@@ -5,9 +5,15 @@ import MealModel from "../../../models/MealModel";
 export const SelectMeal: React.FC<{ meal: MealModel }> = (props) => {
   return (
     <div className="col-xs-6 col-sm-6 col-md-4 col-lg-3 mb-3">
-      <div className="text-center">
+      <div className="card text-center">
         {props.meal.img ? (
-          <img src={props.meal.img} width="151" height="233" alt="meal" />
+          <img
+            className="card-img-top"
+            src={props.meal.img}
+            width="151"
+            height="233"
+            alt="meal"
+          />
         ) : (
           <img
             src={require("./../../../Images/MealsImages/potato-dinner.jpg")}
@@ -16,14 +22,20 @@ export const SelectMeal: React.FC<{ meal: MealModel }> = (props) => {
             alt="meal"
           />
         )}
-        <h6 className="mt-2">{props.meal.title}</h6>
-        <p>{props.meal.category}</p>
-        <Link
-          className="btn main-color text-white"
-          to={`/checkout/${props.meal.id}`}
-        >
-          Select
-        </Link>
+        <div className="card-body">
+          <div className="cardy">
+            <h6 className="card-title mt-2">{props.meal.title}</h6>
+            <p className="card-text">{props.meal.category}</p>
+          </div>
+        </div>
+        <div className="blockquote">
+          <Link
+            className="btn main-color text-white"
+            to={`/checkout/${props.meal.id}`}
+          >
+            Select
+          </Link>
+        </div>
       </div>
     </div>
   );

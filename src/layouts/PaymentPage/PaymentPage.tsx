@@ -162,10 +162,10 @@ export const PaymentPage = () => {
       {numberOfCheckouts >= 3 && totalPrice === 0 && (
         <div className="mt-3">
           <br />
-          <h5>You have no scheduled payments.</h5>
+          <h5>Thanks for your order.</h5>
           <br />
-          <Link type="button" className="btn main-color text-white" to="search">
-            Explore top meals
+          <Link type="button" className="btn main-color text-white" to="home">
+            Go Home
           </Link>
         </div>
       )}

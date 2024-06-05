@@ -64,14 +64,14 @@ export const UserCheckoutHistoryPage = () => {
     <div className="mt-2">
       {histories.length > 0 ? (
         <>
-          <h5>Recent Checkout History:</h5>
+          <h5>Checkout History:</h5>
 
           {histories.map((history) => (
-            <div>
+            <div key={history.id}>
               <div className="card mt-3 shadow p-3 mb-3 bg-body rounded">
                 <div className="row g-0">
                   <div className="col-md-2">
-                    <div className="d-none d-lg-block" key={history.id}>
+                    <div className="d-none d-lg-block">
                       {history.img ? (
                         <img
                           src={history.img}
@@ -126,6 +126,7 @@ export const UserCheckoutHistoryPage = () => {
       ) : (
         <>
           <h3 className="mt-3">Currently no history: </h3>
+          <br />
           <Link className="btn btn-primary" to={"search"}>
             Search for new meal
           </Link>

@@ -56,6 +56,13 @@ export const Navbar = () => {
                 </NavLink>
               </li>
             )}
+            {isAuthenticated && (
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/pay">
+                  Pay Bill
+                </NavLink>
+              </li>
+            )}
             {isAuthenticated && role === "ADMIN" && (
               <li className="nav-item">
                 <NavLink className="nav-link" to="/admin">

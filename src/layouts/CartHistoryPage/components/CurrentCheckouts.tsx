@@ -16,6 +16,9 @@ export const CurrentCheckouts = () => {
   const [isLoadingUserCheckouts, setIsLoadingUserCheckouts] = useState(true);
   const [checkout, setCheckout] = useState(false);
 
+  // Payment Criterion Checker
+  const [displayError, setDisplayError] = useState(false);
+
   useEffect(() => {
     const fetchUserCurrentCheckouts = async () => {
       if (authState && isAuthenticated) {
@@ -33,6 +36,14 @@ export const CurrentCheckouts = () => {
         }
         const currentCheckoutsResponseJson =
           await currentCheckoutsResponse.json();
+
+        const numberOfCheckouts = currentCheckoutsResponseJson.length;
+        window.localStorage.setItem("numberOfCheckouts", numberOfCheckouts);
+
+        numberOfCheckouts > 0 && numberOfCheckouts < 3
+          ? setDisplayError(true)
+          : setDisplayError(false);
+
         setCurrentCheckoutsList(currentCheckoutsResponseJson);
       }
       setIsLoadingUserCheckouts(false);
@@ -74,12 +85,16 @@ export const CurrentCheckouts = () => {
 
   return (
     <div>
+      {displayError && (
+        <div className="alert alert-warning mt-2" role="alert">
+          You would need at least three meals to place an order.
+        </div>
+      )}
       {/* Desktop */}
       <div className="d-none d-lg-block mt-2">
         {currentCheckoutsList.length > 0 ? (
           <>
-            <h5>Current Checkouts: </h5>
-
+            <h5>Current Checkouts: {currentCheckoutsList.length}</h5>
             {currentCheckoutsList.map((currentCheckout) => (
               <div key={currentCheckout.meal.id}>
                 <div className="row mt-3 mb-3">
@@ -166,8 +181,9 @@ export const CurrentCheckouts = () => {
       <div className="container d-lg-none mt-2">
         {currentCheckoutsList.length > 0 ? (
           <>
-            <h5 className="mb-3">Current Checkouts: </h5>
-
+            <h5 className="mb-3">
+              Current Checkouts: {currentCheckoutsList.length}
+            </h5>
             {currentCheckoutsList.map((currentCheckout) => (
               <div key={currentCheckout.meal.id}>
                 <div className="d-flex justify-content-center align-items-center">

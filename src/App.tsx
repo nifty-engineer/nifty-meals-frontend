@@ -13,6 +13,7 @@ import { AuthenticatedRoute } from "./Auth/AuthenticatedRoute";
 import { CartPage } from "./layouts/CartHistoryPage/CartPage";
 import { MessagesPage } from "./layouts/MessagesPage/MessagesPage";
 import { AdminPage } from "./layouts/AdminPage/AdminPage";
+import { PaymentPage } from "./layouts/PaymentPage/PaymentPage";
 
 export const App = () => {
   return (
@@ -50,6 +51,9 @@ export const App = () => {
             </AuthenticatedRoute>
             <AuthenticatedRoute path="/admin">
               <AdminPage />
+            </AuthenticatedRoute>
+            <AuthenticatedRoute path="/pay">
+              <PaymentPage />
             </AuthenticatedRoute>
           </Switch>
         </div>

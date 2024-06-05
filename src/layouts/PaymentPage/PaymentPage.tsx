@@ -142,6 +142,11 @@ export const PaymentPage = () => {
           <div className="card-body">
             <h5 className="card-title mb-3">Credit Card</h5>
             <CardElement id="card-element" />
+            <div>
+              <em className="text-muted">
+                e.g: 3056 9300 0902 0004 --- Any future date --- Any 3 digits
+              </em>
+            </div>
             <button
               disabled={submitDisabled}
               type="button"

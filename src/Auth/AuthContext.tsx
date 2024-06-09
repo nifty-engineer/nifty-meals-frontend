@@ -16,12 +16,12 @@ export const AuthProvider = (props: any) => {
   );
   const [role, setRole] = useState<any>("MEMBER");
 
-  let decoded: CustomJwtPayload;
   useEffect(() => {
     if (!authState) {
       logout();
     } else {
       login("authState", authState);
+      let decoded: CustomJwtPayload;
       (decoded = jwtDecode<CustomJwtPayload>(authState.token)) &&
         setRole(decoded?.role);
 

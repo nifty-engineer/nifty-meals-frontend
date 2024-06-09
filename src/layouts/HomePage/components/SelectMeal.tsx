@@ -23,10 +23,10 @@ export const SelectMeal: React.FC<{ meal: MealModel }> = (props) => {
           />
         )}
         <div className="card-body">
-          <div className="cardy">
+          <div className="card-title-equal-height">
             <h6 className="card-title mt-2">{props.meal.title}</h6>
-            <p className="card-text">{props.meal.category}</p>
           </div>
+          <p className="card-text">{props.meal.category}</p>
         </div>
         <div className="blockquote">
           <Link

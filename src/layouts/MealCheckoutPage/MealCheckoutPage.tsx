@@ -7,6 +7,7 @@ import ReviewModel from "../../models/ReviewModel";
 import { LatestReviews } from "./LatestReviews";
 import { StarsReview } from "../Utils/StarsReview";
 import ReviewRequestModel from "../../models/ReviewRequestModel";
+import { RecipeModal } from "./RecipeModal";
 
 export const MealCheckoutPage = () => {
   const { authState, isAuthenticated } = useAuth();
@@ -33,6 +34,9 @@ export const MealCheckoutPage = () => {
   const [isLoadingMealCheckedOut, setIsLoadingMealCheckedOut] = useState(true);
 
   const mealId = window.location.pathname.split("/")[2];
+
+  // Recipe Modal
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     const fetchMeal = async () => {
@@ -273,6 +277,19 @@ export const MealCheckoutPage = () => {
             <div className="ml-2">
               <h2>{meal?.title}</h2>
               <p className="lead">{meal?.description}</p>
+              <div className="view-recipe">
+                <button
+                  type="button"
+                  className="btn main-color text-white"
+                  onClick={() => setOpenModal(true)}
+                >
+                  View Recipe
+                </button>
+              </div>
+              {openModal && (
+                <RecipeModal mealId={mealId} closeModal={setOpenModal} />
+              )}
+              <br />
               <StarsReview rating={totalStars} size={32} />
             </div>
           </div>

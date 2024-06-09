@@ -43,8 +43,8 @@
   cursor: default;
 }
 
-.cardy {
-  height: 120px;
+.card-title-equal-height {
+  height: 75px;
 }
 
 /* *******************
@@ -142,4 +142,16 @@ LOGIN/REGISTER FORM
 
 .error {
   color: red;
+}
+
+/* ****
+RECIPE
+**** */
+
+.view-recipe {
+  text-align: center;
+}
+
+ul {
+  list-style-type: none;
 }

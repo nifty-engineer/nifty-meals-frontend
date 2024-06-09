@@ -34,7 +34,6 @@ export const RecipeModal: React.FC<{ mealId: string; closeModal: any }> = (
           recipeResponseJson.cookingTime,
           recipeResponseJson.directions
         );
-        console.log(recipeModel);
         setRecipe(recipeModel);
       }
       setLoadingRecipe(false);
@@ -48,7 +47,7 @@ export const RecipeModal: React.FC<{ mealId: string; closeModal: any }> = (
   useEffect(() => {
     const fetchIngredients = async () => {
       if (authState && isAuthenticated) {
-        const url = `http://localhost:8080/api/recipes/${props.mealId}/ingredients`;
+        const url = `http://localhost:8080/api/ingredients/search/findByRecipeId?recipeId=${props.mealId}`;
         const requestOptions = {
           method: "GET",
           headers: { "Content-Type": "application/json" },
@@ -59,7 +58,6 @@ export const RecipeModal: React.FC<{ mealId: string; closeModal: any }> = (
         }
         const recipeResponseJson = await recipeResponse.json();
         const { ingredients } = recipeResponseJson._embedded;
-        console.log(ingredients);
         setIngredients(ingredients);
       }
       setLoadingIngredients(false);

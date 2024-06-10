@@ -47,7 +47,7 @@ export const RecipeModal: React.FC<{ mealId: string; closeModal: any }> = (
   useEffect(() => {
     const fetchIngredients = async () => {
       if (authState && isAuthenticated) {
-        const url = `http://localhost:8080/api/ingredients/search/findByRecipeId?recipeId=${props.mealId}`;
+        const url = `http://localhost:8080/api/ingredients/search/findByMealId?mealId=${props.mealId}`;
         const requestOptions = {
           method: "GET",
           headers: { "Content-Type": "application/json" },
